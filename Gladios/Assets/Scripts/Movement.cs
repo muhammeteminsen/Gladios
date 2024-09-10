@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
 
         if (horizontal == 0 && vertical == 0)
         {
-            rb.velocity = Vector3.Slerp(rb.velocity, Vector3.zero, 3 * Time.deltaTime);
+            rb.velocity = Vector3.Slerp(rb.velocity, Vector3.zero, speedDeccalariton * Time.deltaTime);
         }
 
 
@@ -114,7 +114,7 @@ public class Movement : MonoBehaviour
         }
         if (!forceInput)
         {
-            speed -= Time.deltaTime * speedDeccalariton;
+            speed = defaultSpeed;
         }
 
         if (speed > forceSpeed)
