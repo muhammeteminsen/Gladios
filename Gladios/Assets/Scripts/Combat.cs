@@ -9,60 +9,92 @@ public class Combat : MonoBehaviour
     AnimationController controller;
     [SerializeField] float delayTime;
     bool isHit;
+    public static bool attack;
     private void Start()
     {
         controller = GetComponentInParent<AnimationController>();
     }
     private void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            StartCoroutine(MouseDown());
+        }
+        //Hammer
 
         Collider[] hammerDamage = Physics.OverlapSphere(transform.position, hammerDamageRadius);
         foreach (Collider hitCollider in hammerDamage)
         {
-
+            Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
             if (controller.weapons[2].activeSelf && Input.GetMouseButtonDown(0) && hitCollider.gameObject.CompareTag("Enemy"))
             {
-                StartCoroutine(AttackDelay(hitCollider));
+                StartCoroutine(AttackDelay(hitCollider,rb));
             }
         }
-        Debug.Log(isHit);
+        
     }
     //Hammer
-    IEnumerator AttackDelay(Collider hitCollider)
+    IEnumerator AttackDelay(Collider hitCollider, Rigidbody rb)
     {
         yield return new WaitForSecondsRealtime(delayTime);
-        float randomKnockBack = Random.Range(5,9);
-        hitCollider.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * randomKnockBack;
+        float randomKnockBack = Random.Range(10, 16)*40;
+        rb.AddExplosionForce(randomKnockBack,transform.position,hammerDamageRadius);
         hitCollider.GetComponent<Animator>().SetBool("Hit", true);
         yield return new WaitForSecondsRealtime(.1f);
         hitCollider.GetComponent<Animator>().SetBool("Hit", false);
+        
+    }
+
+    IEnumerator MouseDown()
+    {
+        attack = true;
+        yield return new WaitForSecondsRealtime(delayTime);
+        attack = false;
     }
     //Axe and Sword
     private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetMouseButton(0))
+        if (other.gameObject.CompareTag("Enemy") && !isHit && attack && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
-            isHit = false;
+            StartCoroutine(OneAttackDelay(other));
             
-        }
-
-        if (other.gameObject.CompareTag("Enemy") && !isHit && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
-        {
-            isHit = true;
-            other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;
-            other.GetComponent<Animator>().SetBool("Hit", true);
 
         }
 
     }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy") && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
-            other.GetComponent<Animator>().SetBool("Hit", false);
+            if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
+            {
+                other.GetComponent<Animator>().SetBool("Hit", false);
+            }
+           
+
         }
     }
+    IEnumerator OneAttackDelay(Collider other)
+    {
 
+        isHit = true;
+        if (other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop")||
+            other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
+        {
+            other.GetComponent<Animator>().Play("Hit_F_1_InPlace");
+            other.GetComponent<Animator>().SetBool("Attack",false);
+        }
+        other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;
+        other.GetComponent<Animator>().SetBool("Hit", true);
+        if (controller.weapons[0].activeSelf)
+        {
+            other.GetComponent<Animator>().SetBool("Stunned", true);
+        }
+        yield return new WaitForSecondsRealtime(delayTime);
+        isHit = false;
+        
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
