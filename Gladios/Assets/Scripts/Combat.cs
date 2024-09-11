@@ -28,21 +28,21 @@ public class Combat : MonoBehaviour
             Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
             if (controller.weapons[2].activeSelf && Input.GetMouseButtonDown(0) && hitCollider.gameObject.CompareTag("Enemy"))
             {
-                StartCoroutine(AttackDelay(hitCollider,rb));
+                StartCoroutine(AttackDelay(hitCollider, rb));
             }
         }
-        
+
     }
     //Hammer
     IEnumerator AttackDelay(Collider hitCollider, Rigidbody rb)
     {
         yield return new WaitForSecondsRealtime(delayTime);
-        float randomKnockBack = Random.Range(10, 16)*40;
-        rb.AddExplosionForce(randomKnockBack,transform.position,hammerDamageRadius);
+        float randomKnockBack = Random.Range(10, 16) * 40;
+        rb.AddExplosionForce(randomKnockBack, transform.position, hammerDamageRadius);
         hitCollider.GetComponent<Animator>().SetBool("Hit", true);
         yield return new WaitForSecondsRealtime(.1f);
         hitCollider.GetComponent<Animator>().SetBool("Hit", false);
-        
+
     }
 
     IEnumerator MouseDown()
@@ -57,33 +57,36 @@ public class Combat : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && !isHit && attack && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
             StartCoroutine(OneAttackDelay(other));
-            
-
         }
 
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy") && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
-            if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
-            {
-                other.GetComponent<Animator>().SetBool("Hit", false);
-            }
-           
 
+            StartCoroutine(HitDelay(other));
+
+        }
+    }
+    IEnumerator HitDelay(Collider other)
+    {
+        yield return new WaitForSecondsRealtime(delayTime);
+        if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
+        {
+            other.GetComponent<Animator>().SetBool("Hit", false);
         }
     }
     IEnumerator OneAttackDelay(Collider other)
     {
 
         isHit = true;
-        if (other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop")||
+        if (other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
             other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
         {
+            other.GetComponent<Animator>().SetBool("Attack", false);
             other.GetComponent<Animator>().Play("Hit_F_1_InPlace");
-            other.GetComponent<Animator>().SetBool("Attack",false);
         }
         other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;
         other.GetComponent<Animator>().SetBool("Hit", true);
@@ -93,7 +96,7 @@ public class Combat : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(delayTime);
         isHit = false;
-        
+
     }
     private void OnDrawGizmos()
     {
