@@ -13,6 +13,7 @@ public class Combat : MonoBehaviour
     private void Start()
     {
         controller = GetComponentInParent<AnimationController>();
+        
     }
     private void Update()
     {
@@ -65,9 +66,9 @@ public class Combat : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
-
+            attack = false;
             StartCoroutine(HitDelay(other));
-
+            
         }
     }
     IEnumerator HitDelay(Collider other)

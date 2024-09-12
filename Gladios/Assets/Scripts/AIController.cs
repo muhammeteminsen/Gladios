@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,8 @@ public class AIController : MonoBehaviour
     NavMeshAgent navMesh;
     public Transform direction;
     Animator animator;
+    [SerializeField] float speed;
+    float defaultSpeed;
     [SerializeField] float stoppingDistance = 1;
     [SerializeField] float suspicionRadius;
     bool isHit;
@@ -15,6 +18,7 @@ public class AIController : MonoBehaviour
     {
         navMesh = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        defaultSpeed = speed;
     }
 
 
@@ -30,17 +34,21 @@ public class AIController : MonoBehaviour
                 if (suspicion.gameObject.CompareTag("MainCha") && !isHit)
                 {
                     navMesh.destination = direction.position;
+                    navMesh.speed = defaultSpeed;
                     navMesh.isStopped = false;
                     animator.SetBool("Walk", true);
+                    animator.SetBool("Run",false);
                 }
 
             }
         }
         else
         {
-            
+            navMesh.destination = direction.position;
+            navMesh.speed = speed*2;
+            animator.SetBool("Run",true);
             animator.SetBool("Walk", false);
-            navMesh.isStopped = true;
+            
         }
        
 
@@ -48,10 +56,21 @@ public class AIController : MonoBehaviour
         {
             animator.SetBool("Attack", true);
             animator.SetBool("Walk", false);
-
+            
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+            {
+                transform.LookAt(direction.position);
+            }
+            else
+            {
+                int ignoreLayer = LayerMask.NameToLayer("NavMesh");
+                navMesh.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+                Physics.IgnoreLayerCollision(navMesh.gameObject.layer, ignoreLayer);
+            }
         }
         else
         {
+            
             animator.SetBool("Attack", false);
         }
 
