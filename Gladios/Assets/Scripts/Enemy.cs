@@ -94,4 +94,5 @@ public class Enemy : MonoBehaviour
             weapon.transform.SetParent(null);
         }
     }
+
 }

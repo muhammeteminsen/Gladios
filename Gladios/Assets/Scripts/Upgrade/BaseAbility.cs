@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class BaseAbility : ScriptableObject
 {
     public string abilityName;
+    public string abilityDescription;
     public float cooldownTime;
     public float manaCost;
 
