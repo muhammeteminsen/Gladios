@@ -15,12 +15,14 @@ public class AnimationController : MonoBehaviour
     float defaultMaxMoveValue = 1.2f;
     [SerializeField] float maxMoveValueRun = 2.4f;
     bool isAttack;
+    
 
     void Start()
     {
         animator = GetComponent<Animator>();
         defaultMaxMoveValue = maxMoveValue;
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
+
     }
 
 
@@ -142,6 +144,8 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("Block", false);
             
         }
+      
+        
     }
 
     public void AttackControlFNC()

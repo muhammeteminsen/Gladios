@@ -30,6 +30,7 @@ public class Combat : MonoBehaviour
             {
                 StartCoroutine(AttackDelay(hitCollider,rb));
             }
+            
         }
         
     }

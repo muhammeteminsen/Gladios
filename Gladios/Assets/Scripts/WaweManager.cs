@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -14,11 +13,11 @@ public class Wave
 }
 public class WaweManager : MonoBehaviour
 {
-
+    [SerializeField] UpgradeManager upgradeManager;
     public List<Wave> waves;  // Wave listesi
     public Transform spawnPoint;
 
-    private int currentWave = 0;
+    
     public bool waweCanStart;
     int currentWawe = 0;
     private void Start()
@@ -32,6 +31,11 @@ public class WaweManager : MonoBehaviour
         {
             waweCanStart=false;
             StartCoroutine(SpawnWawe(currentWawe)); 
+           
+        }
+        else if (!waweCanStart) 
+        {
+           upgradeManager.AssignCardSkills();
         }
 
     }
@@ -45,7 +49,7 @@ public class WaweManager : MonoBehaviour
             yield return new WaitForSeconds(wave.spawnInterval); // Spawn aralýðýný bekle
         }
 
-        currentWave++;
+        currentWawe++;
         
     }
 }

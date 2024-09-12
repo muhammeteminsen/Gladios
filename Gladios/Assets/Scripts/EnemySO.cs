@@ -9,6 +9,6 @@ public class EnemySO : ScriptableObject
     [Header("Enemy Settings")]
     public int enemyMaxHealth;
     public int enemySpeed;
-    public int enemyDamage;
+
 }
 
