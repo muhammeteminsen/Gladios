@@ -104,7 +104,7 @@ public class AnimationController : MonoBehaviour
         //Sword
         if (weapons[0].activeSelf)
         {
-            if (attack)
+            if (attack && !block)
             {
                 animator.SetBool("Attack1", true);
                 rb.isKinematic = true;
@@ -115,7 +115,7 @@ public class AnimationController : MonoBehaviour
         //Axe
         if (weapons[1].activeSelf)
         {
-            if (attack)
+            if (attack && !block)
             {
                 animator.SetBool("Attack3", true);
                 rb.isKinematic = true;
@@ -126,7 +126,7 @@ public class AnimationController : MonoBehaviour
         //Hammer
         if (weapons[2].activeSelf)
         {
-            if (attack)
+            if (attack && !block)
             {
                 animator.SetBool("Attack2", true);
                 rb.isKinematic = true;
@@ -177,8 +177,16 @@ public class AnimationController : MonoBehaviour
             isAttack = false;
         }
 
-    }   
+    }
 
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Weapon"))
+    //    {
+    //        animator.SetBool("BlockHit",true);
+    //    }
+
+    //}
 
 
 
