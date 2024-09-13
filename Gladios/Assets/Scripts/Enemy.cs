@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] EnemySO enemyInfo;
+    public EnemySO enemyInfo;
     int health;
     int takenDamage;
     public int damage;
@@ -82,7 +82,10 @@ public class Enemy : MonoBehaviour
 
         }
     }
-
+    public void HitControlFNC()
+    {
+        GetComponentInChildren<CombatEnemy>().isHit=false;
+    }
     public void DeathWeaponLeaveFNC()
     {
         foreach (var weapon in weaponList)

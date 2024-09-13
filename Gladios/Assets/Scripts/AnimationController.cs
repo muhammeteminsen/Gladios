@@ -36,6 +36,7 @@ public class AnimationController : MonoBehaviour
         bool attack = Input.GetMouseButton(0);
         bool block = Input.GetMouseButton(1);
 
+        
 
         if (forwardPressed && moveY < maxMoveValue)
         {
@@ -178,6 +179,7 @@ public class AnimationController : MonoBehaviour
         }
 
     }
+    
 
     //private void OnTriggerEnter(Collider other)
     //{

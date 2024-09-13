@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ee14aca0de37249baad12a14351ece, type: 3}
   m_Name: Heavy
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 20
-  enemyDamage: 4
+  enemyMaxHealth: 100
+  enemyDamage: 1
   enemyTakenDamage: 20
   weapons: 2
   characterType: 1

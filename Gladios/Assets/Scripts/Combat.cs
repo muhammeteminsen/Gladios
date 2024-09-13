@@ -3,26 +3,61 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class Combat : MonoBehaviour
 {
     [SerializeField] float hammerDamageRadius;
     AnimationController controller;
     [SerializeField] float delayTime;
+    Animator animator;
+    Rigidbody rb;
+    public int health = 100;
     bool isHit;
     public static bool attack;
+    public bool isDead;
+
+
     private void Start()
     {
         controller = GetComponentInParent<AnimationController>();
-        
+        animator = GetComponentInParent<Animator>();
+        rb = GetComponentInParent<Rigidbody>();
+
     }
     private void Update()
     {
+        Debug.LogWarning(health);
         if (Input.GetMouseButton(0))
         {
             StartCoroutine(MouseDown());
         }
-        //Hammer
 
+        if (health <= 0)
+        {
+            rb.isKinematic = true;
+            isDead = true;
+
+            for (int i = 0; i < animator.parameterCount; i++)
+            {
+                AnimatorControllerParameter parameter = animator.GetParameter(i);
+                if (parameter.type == AnimatorControllerParameterType.Bool)
+                {
+                    animator.SetBool(parameter.name, false);
+                }
+            }
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+            {
+                animator.Play("Death");
+            }
+
+        }
+        else
+        {
+            isDead = false;
+        }
+
+        
+        //Hammer
         Collider[] hammerDamage = Physics.OverlapSphere(transform.position, hammerDamageRadius);
         foreach (Collider hitCollider in hammerDamage)
         {
@@ -31,7 +66,7 @@ public class Combat : MonoBehaviour
             {
                 StartCoroutine(AttackDelay(hitCollider, rb));
             }
-            
+
         }
 
     }
@@ -56,7 +91,9 @@ public class Combat : MonoBehaviour
     //Axe and Sword
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && !isHit && attack && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
+        if (other.gameObject.CompareTag("Enemy") && !isHit && attack 
+            && (controller.weapons[0].activeSelf 
+            || controller.weapons[1].activeSelf))
         {
             StartCoroutine(OneAttackDelay(other));
         }
@@ -69,32 +106,35 @@ public class Combat : MonoBehaviour
         {
             attack = false;
             StartCoroutine(HitDelay(other));
-            
         }
     }
     IEnumerator HitDelay(Collider other)
     {
         yield return new WaitForSecondsRealtime(delayTime);
-        if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
+        if (health > 0)
         {
-            other.GetComponent<Animator>().SetBool("Hit", false);
+            if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
+            {
+                other.GetComponent<Animator>().SetBool("Hit", false);
+            }
         }
+       
     }
     IEnumerator OneAttackDelay(Collider other)
     {
-
+        Animator otherAnim = other.GetComponent<Animator>();    
         isHit = true;
-        if (other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
-            other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
+        if (otherAnim.GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
+            otherAnim.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
         {
-            other.GetComponent<Animator>().SetBool("Attack", false);
-            other.GetComponent<Animator>().Play("Hit_F_1_InPlace");
+            otherAnim.SetBool("Attack", false);
+            otherAnim.Play("Hit_F_1_InPlace");
         }
         other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;
         other.GetComponent<Animator>().SetBool("Hit", true);
         if (controller.weapons[0].activeSelf)
         {
-            other.GetComponent<Animator>().SetBool("Stunned", true);
+            otherAnim.SetBool("Stunned", true);
         }
         yield return new WaitForSecondsRealtime(delayTime);
         isHit = false;

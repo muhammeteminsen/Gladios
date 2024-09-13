@@ -4951,6 +4951,7 @@ GameObject:
   - component: {fileID: 3549273865737124164}
   - component: {fileID: 7236579186509827996}
   - component: {fileID: 7346997152657530776}
+  - component: {fileID: 6938902277451568106}
   m_Layer: 3
   m_Name: Sword_01
   m_TagString: Untagged
@@ -5073,6 +5074,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &6938902277451568106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558436227503454061}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d091d750e6b5c43bdc17f286c17f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerDamageRadius: 0
+  delayTime: 0
 --- !u!1 &5894801159916284387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5118,6 +5133,7 @@ GameObject:
   - component: {fileID: 7545435971998271928}
   - component: {fileID: 716499179173191937}
   - component: {fileID: 5666147983457949559}
+  - component: {fileID: 6589015375357693609}
   m_Layer: 3
   m_Name: Hammer_01
   m_TagString: Untagged
@@ -5239,6 +5255,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &6589015375357693609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966261247139259381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d091d750e6b5c43bdc17f286c17f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerDamageRadius: 0
+  delayTime: 0
 --- !u!1 &6053661650735717971
 GameObject:
   m_ObjectHideFlags: 0
@@ -5513,6 +5543,7 @@ GameObject:
   - component: {fileID: 342260495161818800}
   - component: {fileID: 1574229748457414748}
   - component: {fileID: 7839642832309081033}
+  - component: {fileID: 5100998831676274674}
   m_Layer: 3
   m_Name: Ax_01
   m_TagString: Untagged
@@ -5634,6 +5665,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &5100998831676274674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432029925816522899}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d091d750e6b5c43bdc17f286c17f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerDamageRadius: 0
+  delayTime: 0
 --- !u!1 &6437234587680232639
 GameObject:
   m_ObjectHideFlags: 0
@@ -8102,6 +8147,7 @@ GameObject:
   - component: {fileID: 2586373881185197501}
   - component: {fileID: 2520669378973298581}
   - component: {fileID: 8584039984166043662}
+  - component: {fileID: 9132512969240084758}
   m_Layer: 3
   m_Name: Dagger_01
   m_TagString: Untagged
@@ -8223,6 +8269,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &9132512969240084758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8863070059376121473}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d091d750e6b5c43bdc17f286c17f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerDamageRadius: 0
+  delayTime: 0
 --- !u!1 &8965215451045927655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8549,6 +8609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: 6afaa7c94da3a6f4dae3f92d4be5140e, type: 2}
+  damage: 0
   weaponList:
   - {fileID: 5558436227503454061}
   - {fileID: 6432029925816522899}

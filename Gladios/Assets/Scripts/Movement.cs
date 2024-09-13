@@ -35,9 +35,13 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        Direction();
-        Jump();
-        Force();
+        if (!GetComponentInChildren<Combat>().isDead)
+        {
+            Direction();
+            Jump();
+            Force();
+        }
+       
         
     }
 

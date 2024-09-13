@@ -22029,6 +22029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeavyEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9110140946031843454, guid: 2d6821456dad1684b864bba5016f5ef9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22046,41 +22051,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 565728334409845579, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_TagString
-      value: MainCha
-      objectReference: {fileID: 0}
-    - target: {fileID: 961455484525502548, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 961455484525502548, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_TagString
-      value: Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221114216810027980, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Mass
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 2335406237035418813, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0.11209059
-      objectReference: {fileID: 0}
-    - target: {fileID: 2335406237035418813, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2335406237035418813, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3878244491463927191, guid: ec866b77cdd0cce4ab172ae94d5af687,
         type: 3}
@@ -22132,50 +22102,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4313797721052331056, guid: ec866b77cdd0cce4ab172ae94d5af687,
+    - target: {fileID: 5068195338687782110, guid: ec866b77cdd0cce4ab172ae94d5af687,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5068195338687782110, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5068195338687782110, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_TagString
-      value: Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 5111854200115881858, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5111854200115881858, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_TagString
-      value: Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 6261262144428855252, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.27457517
-      objectReference: {fileID: 0}
-    - target: {fileID: 6261262144428855252, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.0063542724
-      objectReference: {fileID: 0}
     - target: {fileID: 8910319163640426683, guid: ec866b77cdd0cce4ab172ae94d5af687,
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8910319163640426683, guid: ec866b77cdd0cce4ab172ae94d5af687,
-        type: 3}
-      propertyPath: m_TagString
-      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22199,6 +22134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'FastEnemy '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411463390759043118, guid: 4b59162d64a350048a44cac13240fa92,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8544633843914580227, guid: 4b59162d64a350048a44cac13240fa92,
         type: 3}
@@ -22322,6 +22262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClassicEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569855359910355468, guid: bdd65152d84c197498cebd4778cb8d4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
