@@ -7,8 +7,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public EnemySO enemyInfo;
-    int health;
-    int takenDamage;
+    public int health;
+    public int takenDamage;
     public int damage;
     Animator animator;
     Rigidbody rb;
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        
+        Debug.Log(health);
         if (health <= 0)
         {
             for (int i = 0; i < animator.parameterCount; i++)

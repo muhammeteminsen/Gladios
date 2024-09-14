@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fast
   m_EditorClassIdentifier: 
   enemyMaxHealth: 40
-  enemyDamage: 10
+  enemyDamage: 1
   enemyTakenDamage: 20
   weapons: 1
   characterType: 2

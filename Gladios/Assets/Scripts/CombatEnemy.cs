@@ -20,8 +20,8 @@ public class CombatEnemy : MonoBehaviour
        
         if (enemy.weaponList[2].activeSelf)
         {
-            hammerDamageRadius = 10;
-            delayTime = .3f;
+            hammerDamageRadius = 5;
+            delayTime = .4f;
             Collider[] hammerDamage = Physics.OverlapSphere(transform.position, hammerDamageRadius);
             foreach (Collider hitCollider in hammerDamage)
             {
@@ -34,8 +34,6 @@ public class CombatEnemy : MonoBehaviour
                         if (!animatorHit.GetCurrentAnimatorStateInfo(0).IsName("Death")
                         && animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
                         {
-
-                            rb.isKinematic = false;
                             if (!isHit)
                             {
                                 StartCoroutine(AttackDelay(rb, animatorHit, hitCollider));
@@ -52,8 +50,7 @@ public class CombatEnemy : MonoBehaviour
     }
     IEnumerator AttackDelay(Rigidbody rb, Animator animatorHit, Collider hitCollider)
     {
-        float randomKnockBack = Random.Range(10, 16) * 50;
-        rb.AddExplosionForce(randomKnockBack, transform.position, hammerDamageRadius);
+        float randomKnockBack = Random.Range(10, 16) * 75;
         isHit = true;
         yield return new WaitForSecondsRealtime(delayTime);
         hitCollider.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage;
@@ -61,6 +58,7 @@ public class CombatEnemy : MonoBehaviour
         if (areAllAttacksFalse)
         {
             animatorHit.SetBool("Hit", true);
+            rb.AddExplosionForce(randomKnockBack, transform.position, hammerDamageRadius);
             yield return new WaitForSeconds(.1f);
             animatorHit.SetBool("Hit", false);
         }
@@ -74,11 +72,18 @@ public class CombatEnemy : MonoBehaviour
             Animator animator = other.GetComponent<Animator>();
             if (animator.GetBool("Block"))
             {
-                other.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage/3;
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+                {
+                    other.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage / 3;
+                }
             }
             else
             {
-                other.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage;
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+                {
+                    other.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage;
+                }
+               
             }
 
             bool areAllAttacksFalse = !animator.GetBool("Attack1") && !animator.GetBool("Attack2") && !animator.GetBool("Attack3");

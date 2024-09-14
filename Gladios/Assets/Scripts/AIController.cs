@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    NavMeshAgent navMesh;
+    public NavMeshAgent navMesh;
     public Transform direction;
     Animator animator;
     [SerializeField] float speed;
@@ -24,32 +24,35 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
-
-        navMesh.stoppingDistance = stoppingDistance;
-        if (Vector3.Distance(transform.position,direction.position)<=suspicionRadius)
+        Debug.Log(navMesh.isStopped);
+        if (GetComponent<Enemy>().health>0)
         {
-            Collider[] suspicionArea = Physics.OverlapSphere(transform.position, suspicionRadius);
-            foreach (Collider suspicion in suspicionArea)
+            navMesh.stoppingDistance = stoppingDistance;
+            if (Vector3.Distance(transform.position, direction.position) <= suspicionRadius)
             {
-                if (suspicion.gameObject.CompareTag("MainCha") && !isHit)
+                Collider[] suspicionArea = Physics.OverlapSphere(transform.position, suspicionRadius);
+                foreach (Collider suspicion in suspicionArea)
                 {
-                    navMesh.destination = direction.position;
-                    navMesh.speed = defaultSpeed;
-                    navMesh.isStopped = false;
-                    animator.SetBool("Walk", true);
-                    animator.SetBool("Run",false);
+                    if (suspicion.gameObject.CompareTag("MainCha") && !isHit)
+                    {
+                        navMesh.destination = direction.position;
+                        navMesh.speed = defaultSpeed;
+                        animator.SetBool("Walk", true);
+                        animator.SetBool("Run", false);
+                    }
+
                 }
+            }
+            else
+            {
+                navMesh.destination = direction.position;
+                navMesh.speed = speed * 2;
+                animator.SetBool("Run", true);
+                animator.SetBool("Walk", false);
 
             }
         }
-        else
-        {
-            navMesh.destination = direction.position;
-            navMesh.speed = speed*2;
-            animator.SetBool("Run",true);
-            animator.SetBool("Walk", false);
-            
-        }
+       
        
 
         if (Vector3.Distance(transform.position, direction.position) <= stoppingDistance)
@@ -92,6 +95,18 @@ public class AIController : MonoBehaviour
         animator.SetBool("Stunned", false);
     }
 
+    //public void StoppedDelayAxeFNC()
+    //{
+        
+    //    navMesh.isStopped = false;
+    //}
+
+
+    public void isStoppedFalseFNC()
+    {
+        isHit = false;
+        navMesh.isStopped = false;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

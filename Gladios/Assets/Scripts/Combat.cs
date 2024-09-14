@@ -34,7 +34,7 @@ public class Combat : MonoBehaviour
 
         if (health <= 0)
         {
-            rb.isKinematic = true;
+
             isDead = true;
 
             for (int i = 0; i < animator.parameterCount; i++)
@@ -56,13 +56,13 @@ public class Combat : MonoBehaviour
             isDead = false;
         }
 
-        
+
         //Hammer
         Collider[] hammerDamage = Physics.OverlapSphere(transform.position, hammerDamageRadius);
         foreach (Collider hitCollider in hammerDamage)
         {
             Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
-            if (controller.weapons[2].activeSelf && Input.GetMouseButtonDown(0) && hitCollider.gameObject.CompareTag("Enemy"))
+            if (controller.weapons[2].activeSelf && Input.GetMouseButtonDown(0) && hitCollider.gameObject.CompareTag("Enemy") && hitCollider.GetComponent<Enemy>().health > 0)
             {
                 StartCoroutine(AttackDelay(hitCollider, rb));
             }
@@ -74,9 +74,11 @@ public class Combat : MonoBehaviour
     IEnumerator AttackDelay(Collider hitCollider, Rigidbody rb)
     {
         yield return new WaitForSecondsRealtime(delayTime);
-        float randomKnockBack = Random.Range(10, 16) * 40;
+        float randomKnockBack = Random.Range(10, 16) * 75;
         rb.AddExplosionForce(randomKnockBack, transform.position, hammerDamageRadius);
-        hitCollider.GetComponent<Animator>().SetBool("Hit", true);
+        hitCollider.GetComponent<AIController>().navMesh.isStopped = true;
+        hitCollider.GetComponent<Enemy>().health -= hitCollider.GetComponent<Enemy>().takenDamage;
+        hitCollider.GetComponent<Animator>().Play("Hit_F_1_InPlace");
         yield return new WaitForSecondsRealtime(.1f);
         hitCollider.GetComponent<Animator>().SetBool("Hit", false);
 
@@ -91,8 +93,8 @@ public class Combat : MonoBehaviour
     //Axe and Sword
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && !isHit && attack 
-            && (controller.weapons[0].activeSelf 
+        if (other.gameObject.CompareTag("Enemy") && !isHit && attack
+            && (controller.weapons[0].activeSelf
             || controller.weapons[1].activeSelf))
         {
             StartCoroutine(OneAttackDelay(other));
@@ -105,24 +107,26 @@ public class Combat : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && (controller.weapons[0].activeSelf || controller.weapons[1].activeSelf))
         {
             attack = false;
-            StartCoroutine(HitDelay(other));
+            if (other.GetComponent<Enemy>().health > 0)
+            {
+                StartCoroutine(HitDelay(other));
+            }
         }
     }
     IEnumerator HitDelay(Collider other)
     {
         yield return new WaitForSecondsRealtime(delayTime);
-        if (health > 0)
+
+        if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
         {
-            if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop"))
-            {
-                other.GetComponent<Animator>().SetBool("Hit", false);
-            }
+            other.GetComponent<Animator>().SetBool("Hit", false);
         }
-       
+
+
     }
     IEnumerator OneAttackDelay(Collider other)
     {
-        Animator otherAnim = other.GetComponent<Animator>();    
+        Animator otherAnim = other.GetComponent<Animator>();
         isHit = true;
         if (otherAnim.GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
             otherAnim.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))

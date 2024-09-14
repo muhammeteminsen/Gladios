@@ -107,6 +107,7 @@ public class AnimationController : MonoBehaviour
         {
             if (attack && !block)
             {
+                
                 animator.SetBool("Attack1", true);
                 rb.isKinematic = true;
                 isAttack = true;
@@ -179,7 +180,18 @@ public class AnimationController : MonoBehaviour
         }
 
     }
-    
+    public void WeaponLeaveFNC()
+    {
+        foreach (var weapon in weapons)
+        {
+            Rigidbody wprb = weapon.GetComponent<Rigidbody>();
+            wprb.isKinematic = false;
+                    Debug.Log("isKinematic: " + wprb.isKinematic);
+            wprb.useGravity = true;
+            weapon.GetComponent<MeshCollider>().isTrigger = false;
+            weapon.transform.SetParent(null);
+        }
+    }
 
     //private void OnTriggerEnter(Collider other)
     //{

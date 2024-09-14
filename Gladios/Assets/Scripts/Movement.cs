@@ -35,12 +35,16 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (!GetComponentInChildren<Combat>().isDead)
+        if (!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
-            Direction();
-            Jump();
-            Force();
+            if (!GetComponentInChildren<Combat>().isDead)
+            {
+                Direction();
+                Jump();
+                Force();
+            }
         }
+        
        
         
     }
