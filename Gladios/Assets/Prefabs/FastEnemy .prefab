@@ -5873,6 +5873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hammerDamageRadius: 0
   delayTime: 0
+  isHit: 0
 --- !u!1 &5726656106793191570
 GameObject:
   m_ObjectHideFlags: 0
@@ -6186,6 +6187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hammerDamageRadius: 0
   delayTime: 0
+  isHit: 0
 --- !u!1 &5827713988568782249
 GameObject:
   m_ObjectHideFlags: 0
@@ -6367,6 +6369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hammerDamageRadius: 0
   delayTime: 0
+  isHit: 0
 --- !u!1 &6223748941344545028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7155,7 +7158,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7411463390759043118}
   serializedVersion: 4
-  m_Mass: 120
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -7231,6 +7234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896d9a15f1f50534da1a90da731dd810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMesh: {fileID: 2083263023804137703}
   direction: {fileID: 0}
   speed: 2
   stoppingDistance: 2
@@ -7248,6 +7252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: 8344d052dccbce24f913d3e3dd6e1a7c, type: 2}
+  health: 0
+  takenDamage: 0
   damage: 0
   weaponList:
   - {fileID: 5823549441139609925}
@@ -8472,6 +8478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hammerDamageRadius: 0
   delayTime: 0
+  isHit: 0
 --- !u!1 &9002983198404583584
 GameObject:
   m_ObjectHideFlags: 0

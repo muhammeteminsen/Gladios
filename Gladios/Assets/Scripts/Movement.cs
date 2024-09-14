@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Values")]
-    [SerializeField] float speed = 5f;
+    [HideInInspector] public float speed = 5f;
     [SerializeField] float forceSpeedValue = 5f;
     [SerializeField] float jumpValue = 10f;
     [SerializeField] float mouseSensivity = 5f;
@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     float currentRotationX = 0f;
     [Header("Objects")]
     Rigidbody rb;
-    float defaultSpeed;
+    [HideInInspector] public float defaultSpeed;
     float defaultGravityMultiplier;
     float forceSpeed;
     [Header("Bool")]

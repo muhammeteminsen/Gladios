@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
     public NavMeshAgent navMesh;
-    public Transform direction;
+    public GameObject direction;
     Animator animator;
     [SerializeField] float speed;
     float defaultSpeed;
@@ -21,7 +20,10 @@ public class AIController : MonoBehaviour
         defaultSpeed = speed;
     }
 
-
+    private void OnEnable()
+    {
+        direction = GameObject.FindGameObjectWithTag("MainCha");
+    }
     void Update()
     {
         Debug.Log(navMesh.isStopped);
@@ -29,14 +31,14 @@ public class AIController : MonoBehaviour
         {
             
             navMesh.stoppingDistance = stoppingDistance;
-            if (Vector3.Distance(transform.position, direction.position) <= suspicionRadius)
+            if (Vector3.Distance(transform.position, direction.transform.position) <= suspicionRadius)
             {
                 Collider[] suspicionArea = Physics.OverlapSphere(transform.position, suspicionRadius);
                 foreach (Collider suspicion in suspicionArea)
                 {
                     if (suspicion.gameObject.CompareTag("MainCha") && !isHit)
                     {
-                        navMesh.destination = direction.position;
+                        navMesh.destination = direction.transform.position;
                         navMesh.speed = defaultSpeed;
                         animator.SetBool("Walk", true);
                         animator.SetBool("Run", false);
@@ -46,7 +48,7 @@ public class AIController : MonoBehaviour
             }
             else
             {
-                navMesh.destination = direction.position;
+                navMesh.destination = direction.transform.position;
                 navMesh.speed = speed * 2;
                 animator.SetBool("Run", true);
                 animator.SetBool("Walk", false);
@@ -56,7 +58,7 @@ public class AIController : MonoBehaviour
        
        
 
-        if (Vector3.Distance(transform.position, direction.position) <= stoppingDistance)
+        if (Vector3.Distance(transform.position, direction.transform.position) <= stoppingDistance)
         {
             switch (GetComponent<Enemy>().enemyInfo.characterType)
             {
@@ -74,7 +76,7 @@ public class AIController : MonoBehaviour
             
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
-                transform.LookAt(direction.position);
+                transform.LookAt(direction.transform.position);
             }
             else
             {

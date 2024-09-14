@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
+    private Movement movement;
     Animator animator;
     Rigidbody rb;
     public float acceleration = .2f;
@@ -22,7 +23,7 @@ public class AnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
         defaultMaxMoveValue = maxMoveValue;
         rb = GetComponent<Rigidbody>();
-
+        movement = GetComponent<Movement>();
     }
 
 
@@ -107,9 +108,9 @@ public class AnimationController : MonoBehaviour
         {
             if (attack && !block)
             {
-                
+                movement.speed /= 2;
                 animator.SetBool("Attack1", true);
-                rb.isKinematic = true;
+                rb.isKinematic = false;
                 isAttack = true;
             }
         }
@@ -119,8 +120,9 @@ public class AnimationController : MonoBehaviour
         {
             if (attack && !block)
             {
+                movement.speed /= 2;
                 animator.SetBool("Attack3", true);
-                rb.isKinematic = true;
+                rb.isKinematic = false;
                 isAttack = true;
             }
         }
@@ -130,8 +132,9 @@ public class AnimationController : MonoBehaviour
         {
             if (attack && !block)
             {
+                movement.speed /= 2;
                 animator.SetBool("Attack2", true);
-                rb.isKinematic = true;
+                rb.isKinematic = false;
                 isAttack = true;
             }
         }
@@ -155,16 +158,17 @@ public class AnimationController : MonoBehaviour
         //Sword
         if (weapons[0].activeSelf)
         {
-
+            movement.speed = movement.defaultSpeed;
             animator.SetBool("Attack1", false);
             rb.isKinematic = false;
             isAttack = false;
+           
         }
         
         //Axe
         if (weapons[1].activeSelf)
         {
-            
+            movement.speed = movement.defaultSpeed;
             animator.SetBool("Attack3", false);
             rb.isKinematic = false;
             isAttack = false;
@@ -173,7 +177,7 @@ public class AnimationController : MonoBehaviour
         //Hammer
         if (weapons[2].activeSelf)
         {
-
+            movement.speed = movement.defaultSpeed;
             animator.SetBool("Attack2", false);
             rb.isKinematic = false;
             isAttack = false;
