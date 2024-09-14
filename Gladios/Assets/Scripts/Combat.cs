@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
+    public Camera mainCamera;
     [SerializeField] float hammerDamageRadius;
     AnimationController controller;
     [SerializeField] float delayTime;
@@ -145,7 +146,7 @@ public class Combat : MonoBehaviour
             }
             otherAnim.Play("Hit_F_1_InPlace");
         }
-        other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;
+        other.GetComponent<Rigidbody>().velocity += mainCamera.transform.forward * 5;
         other.GetComponent<Animator>().SetBool("Hit", true);
         if (controller.weapons[0].activeSelf)
         {

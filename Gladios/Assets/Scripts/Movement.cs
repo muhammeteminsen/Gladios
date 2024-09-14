@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +7,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Values")]
-    [HideInInspector] public float speed = 5f;
+    /*[HideInInspector]*/ public float speed = 5f;
+    public float inAttackSpeed;
     [SerializeField] float forceSpeedValue = 5f;
     [SerializeField] float jumpValue = 10f;
     [SerializeField] float mouseSensivity = 5f;
@@ -17,6 +19,7 @@ public class Movement : MonoBehaviour
     float currentRotationX = 0f;
     [Header("Objects")]
     Rigidbody rb;
+    public Camera mainCamera;
     [HideInInspector] public float defaultSpeed;
     float defaultGravityMultiplier;
     float forceSpeed;
@@ -30,7 +33,7 @@ public class Movement : MonoBehaviour
         forceSpeed = speed + forceSpeedValue;
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-        
+        inAttackSpeed = speed / 2 + 1;
     }
 
     void Update()
@@ -44,9 +47,9 @@ public class Movement : MonoBehaviour
                 Force();
             }
         }
-        
+        Debug.Log(speed);
        
-        
+        speed = Mathf.Clamp(speed,1f, 5f);
     }
 
     void Direction()
@@ -67,9 +70,9 @@ public class Movement : MonoBehaviour
         rb.velocity = rb.velocity.normalized * clampedMagnitude;
 
 
-        Vector3 cameraDirection = Camera.main.transform.forward;
+        Vector3 cameraDirection = mainCamera.transform.forward;
         cameraDirection.y = 0;
-        Vector3 moveDirection = (cameraDirection.normalized * vertical) + (Camera.main.transform.right * horizontal);
+        Vector3 moveDirection = (cameraDirection.normalized * vertical) + (mainCamera.transform.right * horizontal);
 
 
         rb.velocity += moveDirection * speed;

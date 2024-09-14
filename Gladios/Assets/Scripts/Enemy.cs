@@ -80,7 +80,7 @@ public class Enemy : MonoBehaviour
             health -= takenDamage;
             GetComponent<CapsuleCollider>().isTrigger = true;
             rb.isKinematic = true;
-
+            Combat.attack = false;
         }
     }
     public void HitControlFNC()
