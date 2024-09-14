@@ -27,6 +27,7 @@ public class AIController : MonoBehaviour
         Debug.Log(navMesh.isStopped);
         if (GetComponent<Enemy>().health>0)
         {
+            
             navMesh.stoppingDistance = stoppingDistance;
             if (Vector3.Distance(transform.position, direction.position) <= suspicionRadius)
             {
@@ -57,7 +58,18 @@ public class AIController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, direction.position) <= stoppingDistance)
         {
-            animator.SetBool("Attack", true);
+            switch (GetComponent<Enemy>().enemyInfo.characterType)
+            {
+                case ChaType.Classic:
+                    animator.SetBool("Attack", true);
+                    break;
+                case ChaType.Heavy:
+                    animator.SetBool("Attack2", true);
+                    break;
+                case ChaType.Fast:
+                    animator.SetBool("Attack3", true);
+                    break;
+            }
             animator.SetBool("Walk", false);
             
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
@@ -73,8 +85,18 @@ public class AIController : MonoBehaviour
         }
         else
         {
-            
-            animator.SetBool("Attack", false);
+            switch (GetComponent<Enemy>().enemyInfo.characterType)
+            {
+                case ChaType.Classic:
+                    animator.SetBool("Attack", false);
+                    break;
+                case ChaType.Heavy:
+                    animator.SetBool("Attack2", false);
+                    break;
+                case ChaType.Fast:
+                    animator.SetBool("Attack3", false);
+                    break;
+            }
         }
 
     }

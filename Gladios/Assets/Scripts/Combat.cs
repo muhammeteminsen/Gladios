@@ -131,7 +131,18 @@ public class Combat : MonoBehaviour
         if (otherAnim.GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
             otherAnim.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
         {
-            otherAnim.SetBool("Attack", false);
+            switch (other.GetComponent<Enemy>().enemyInfo.characterType)
+            {
+                case ChaType.Classic:
+                    otherAnim.SetBool("Attack", false);
+                    break;
+                case ChaType.Heavy:
+                    otherAnim.SetBool("Attack2", false);
+                    break;
+                case ChaType.Fast:
+                    otherAnim.SetBool("Attack3", false);
+                    break;
+            }
             otherAnim.Play("Hit_F_1_InPlace");
         }
         other.GetComponent<Rigidbody>().velocity += Camera.main.transform.forward * 5;

@@ -21,7 +21,7 @@ public class CombatEnemy : MonoBehaviour
         if (enemy.weaponList[2].activeSelf)
         {
             hammerDamageRadius = 5;
-            delayTime = .4f;
+            delayTime = 1f;
             Collider[] hammerDamage = Physics.OverlapSphere(transform.position, hammerDamageRadius);
             foreach (Collider hitCollider in hammerDamage)
             {
@@ -32,8 +32,9 @@ public class CombatEnemy : MonoBehaviour
                     if (animator!=null)
                     {
                         if (!animatorHit.GetCurrentAnimatorStateInfo(0).IsName("Death")
-                        && animator.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
+                        && animator.GetCurrentAnimatorStateInfo(0).IsName("MeleeAttackTwoHandedEnemy"))
                         {
+                            GetComponentInParent<Rigidbody>().isKinematic= true;
                             if (!isHit)
                             {
                                 StartCoroutine(AttackDelay(rb, animatorHit, hitCollider));
@@ -50,7 +51,7 @@ public class CombatEnemy : MonoBehaviour
     }
     IEnumerator AttackDelay(Rigidbody rb, Animator animatorHit, Collider hitCollider)
     {
-        float randomKnockBack = Random.Range(10, 16) * 75;
+        float randomKnockBack = Random.Range(10, 16) * 100;
         isHit = true;
         yield return new WaitForSecondsRealtime(delayTime);
         hitCollider.GetComponentInChildren<Combat>().health -= GetComponentInParent<Enemy>().damage;

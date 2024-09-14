@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     public List<GameObject> weaponList;
+    
     private void Start()
     {
         health = enemyInfo.enemyMaxHealth;
