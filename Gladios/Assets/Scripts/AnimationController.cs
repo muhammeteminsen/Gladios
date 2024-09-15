@@ -188,7 +188,7 @@ public class AnimationController : MonoBehaviour
         {
             Rigidbody wprb = weapon.GetComponent<Rigidbody>();
             wprb.isKinematic = false;
-                    Debug.Log("isKinematic: " + wprb.isKinematic);
+                    //Debug.Log("isKinematic: " + wprb.isKinematic);
             wprb.useGravity = true;
             weapon.GetComponent<MeshCollider>().isTrigger = false;
             weapon.transform.SetParent(null);

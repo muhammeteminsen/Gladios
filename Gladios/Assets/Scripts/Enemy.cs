@@ -6,14 +6,15 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    
     public EnemySO enemyInfo;
     public int health;
-    public int takenDamage;
+    public static int takenDamage;
     public int damage;
     Animator animator;
     Rigidbody rb;
     public List<GameObject> weaponList;
-    
+   
     private void Start()
     {
         health = enemyInfo.enemyMaxHealth;

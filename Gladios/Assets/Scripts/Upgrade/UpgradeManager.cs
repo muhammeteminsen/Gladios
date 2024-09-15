@@ -15,18 +15,26 @@ public class WeaponSkills
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance; // Singleton instance for easy access
-
+    public Card card;
     [SerializeField] List<GeneralUpgradeSO> generalUpgrades;
     [SerializeField] List<WeaponSkills> weaponsSkils;
     [SerializeField] int weaponIndex;
     [SerializeField] Card cardObject1, cardObject2, cardObject3;
     [SerializeField] AnimationController animationController;
-
+   
     private void Awake()
     {
         Instance = this; // Setup the singleton
     }
-
+    private void Update()
+    {
+        if (card.upgradeUI.activeSelf)
+        {
+            
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else { Cursor.lockState = CursorLockMode.Locked; }
+    }
     // Get the active weapon index based on animationController
     public void GetWeaponIndex()
     {
@@ -76,14 +84,30 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Apply the selected skill (this is called from the Card class)
-    public void ApplySelectedSkill(BaseAbility selectedAbility)
+    public void ApplySelected(BaseAbility selectedAbility = null, GeneralUpgradeSO selectedUpgrade = null)
     {
-        Debug.Log("Applying Ability: " + selectedAbility.abilityName);
-
-        // Implement logic to apply the selected ability to the player or weapon
-        // Example: Apply ability effects here
+        if (selectedAbility != null)
+        {
+            // If a BaseAbility is selected
+            Debug.Log("Applying Ability: " + selectedAbility.abilityName);
+            // Implement logic to apply the selected ability to the player or weapon
+        }
+        else if (selectedUpgrade != null)
+        {
+            // If a GeneralUpgradeSO is selected
+            Debug.Log("Applying Upgrade: Health + " + selectedUpgrade.healthBonus +
+                      ", Speed + " + selectedUpgrade.speedBonus +
+                      ", Damage + " + selectedUpgrade.damageBonus);
+            // Implement logic to apply the selected upgrade to the player
+            Combat.instance.health += selectedUpgrade.healthBonus;
+            Movement.Instance.speed += selectedUpgrade.speedBonus / 2;
+            Enemy.takenDamage += selectedUpgrade.damageBonus;
+        }
+        else
+        {
+            Debug.LogWarning("No ability or upgrade selected!");
+        }
     }
-
     // Optionally reset the card display
     void ResetCardDisplay()
     {

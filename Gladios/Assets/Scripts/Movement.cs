@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public static Movement Instance;
     [Header("Values")]
     /*[HideInInspector]*/ public float speed = 5f;
     public float inAttackSpeed;
@@ -25,7 +26,10 @@ public class Movement : MonoBehaviour
     float forceSpeed;
     [Header("Bool")]
     bool isGround;
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         defaultGravityMultiplier = gravityMultiplier;

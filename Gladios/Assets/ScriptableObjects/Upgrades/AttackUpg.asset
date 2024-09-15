@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBonus: 0
   speedBonus: 0
-  damageBonus: 0
+  damageBonus: 10

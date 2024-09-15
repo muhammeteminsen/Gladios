@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SpeedUpg
   m_EditorClassIdentifier: 
   healthBonus: 0
-  speedBonus: 0
+  speedBonus: 2
   damageBonus: 0

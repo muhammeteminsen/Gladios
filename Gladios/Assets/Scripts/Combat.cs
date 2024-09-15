@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
+    public static Combat instance;
     public Camera mainCamera;
     [SerializeField] float hammerDamageRadius;
     AnimationController controller;
@@ -17,7 +18,10 @@ public class Combat : MonoBehaviour
     public static bool attack;
     public bool isDead;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         controller = GetComponentInParent<AnimationController>();
@@ -27,7 +31,7 @@ public class Combat : MonoBehaviour
     }
     private void Update()
     {
-        Debug.LogWarning(health);
+        //Debug.LogWarning(health);
         if (Input.GetMouseButton(0))
         {
             StartCoroutine(MouseDown());
@@ -78,7 +82,7 @@ public class Combat : MonoBehaviour
         float randomKnockBack = Random.Range(10, 16) * 75;
         rb.AddExplosionForce(randomKnockBack, transform.position, hammerDamageRadius);
         hitCollider.GetComponent<AIController>().navMesh.isStopped = true;
-        hitCollider.GetComponent<Enemy>().health -= hitCollider.GetComponent<Enemy>().takenDamage;
+        hitCollider.GetComponent<Enemy>().health -= Enemy.takenDamage;
         hitCollider.GetComponent<Animator>().Play("Hit_F_1_InPlace");
         yield return new WaitForSecondsRealtime(.1f);
         hitCollider.GetComponent<Animator>().SetBool("Hit", false);
