@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    WaweManager waweManager;
+    public WaweManager waweManager;
     public GameObject upgradeUI; // UI that contains the upgrades
     public Image abilityUıImage;
 
