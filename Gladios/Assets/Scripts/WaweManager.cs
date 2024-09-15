@@ -37,7 +37,8 @@ public class WaweManager : MonoBehaviour
         }
         else if (!waweCanStart && AreEnemiesCleared()) // Eðer tüm düþmanlar yok olduysa
         {
-            upgradeManager.AssignCardSkills(); // Yükseltmeleri devreye sok
+            upgradeManager.AssignCardSkills();
+            upgradeManager.card.upgradeUI.SetActive(true);// Yükseltmeleri devreye sok
         }
     }
 
@@ -59,6 +60,7 @@ public class WaweManager : MonoBehaviour
     {
         Enemy[] enemies = FindObjectsOfType<Enemy>(); // Sahnede var olan tüm Enemy objelerini bul
         return enemies.Length == 0; // Eðer sahnede hiç düþman kalmadýysa true döner
+
     }
 }
 
