@@ -70,18 +70,16 @@ public class Enemy : MonoBehaviour
                 }
             }
             animator.Play("Death");
-            
-           
-            
+
         }
 
         
     }
     public void EffectsDelayFNC()
     {
-       
+        ParticleSystem deathEffectIns = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(deathEffectIns.gameObject, 1f);
         Destroy(gameObject);
-        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -95,7 +93,7 @@ public class Enemy : MonoBehaviour
     public void HitControlFNC()
     {
         GetComponentInChildren<CombatEnemy>().isHit=false;
-        Instantiate(deathEffect, transform.position, transform.rotation, transform);
+        
     }
     public void DeathWeaponLeaveFNC()
     {

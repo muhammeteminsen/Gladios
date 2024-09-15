@@ -6385,7 +6385,7 @@ MonoBehaviour:
   - {fileID: 5602093862677114136}
   - {fileID: 4227661637924458797}
   - {fileID: 8354955064437904872}
-  deathEffect: {fileID: 198992326210486402, guid: 2e33bbd89680b744a8f2b0727a31b0ca,
+  deathEffect: {fileID: 198783436308880858, guid: 38e2ad2405a73b94ca4acff97076788a,
     type: 3}
 --- !u!1 &6591704880811996237
 GameObject:
