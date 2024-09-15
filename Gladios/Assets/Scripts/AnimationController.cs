@@ -110,6 +110,7 @@ public class AnimationController : MonoBehaviour
             {
                 movement.speed = movement.inAttackSpeed;
                 animator.SetBool("Attack1", true);
+                rb.isKinematic = true;
                 isAttack = true;
             }
         }
@@ -121,6 +122,7 @@ public class AnimationController : MonoBehaviour
             {
                 movement.speed /= 2;
                 animator.SetBool("Attack3", true);
+                rb.isKinematic = true;
                 isAttack = true;
             }
         }
@@ -132,7 +134,7 @@ public class AnimationController : MonoBehaviour
             {
                 movement.speed /= 2;
                 animator.SetBool("Attack2", true);
-                rb.isKinematic = false;
+                rb.isKinematic = true;
                 isAttack = true;
             }
         }

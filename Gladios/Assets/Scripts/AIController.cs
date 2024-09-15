@@ -13,6 +13,7 @@ public class AIController : MonoBehaviour
     [SerializeField] float stoppingDistance = 1;
     [SerializeField] float suspicionRadius;
     bool isHit;
+    AnimationController controller;
     void Start()
     {
         navMesh = GetComponent<NavMeshAgent>();
@@ -107,6 +108,7 @@ public class AIController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Weapon") && Combat.attack)
         {
+            controller = other.GetComponentInParent<AnimationController>();
             isHit = true;
             navMesh.isStopped = true;
         }
@@ -117,19 +119,18 @@ public class AIController : MonoBehaviour
         isHit = false;
         navMesh.isStopped = false;
         animator.SetBool("Stunned", false);
+        animator.SetBool("Hit", false);
     }
-
-    //public void StoppedDelayAxeFNC()
-    //{
-        
-    //    navMesh.isStopped = false;
-    //}
-
 
     public void isStoppedFalseFNC()
     {
-        isHit = false;
-        navMesh.isStopped = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+        if (!controller.weapons[0].activeSelf)
+        {
+            isHit = false;
+            navMesh.isStopped = false;
+        }
+        
     }
     private void OnDrawGizmos()
     {

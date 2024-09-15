@@ -8615,13 +8615,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: 6afaa7c94da3a6f4dae3f92d4be5140e, type: 2}
   health: 0
-  takenDamage: 0
   damage: 0
   weaponList:
   - {fileID: 5558436227503454061}
   - {fileID: 6432029925816522899}
   - {fileID: 5966261247139259381}
   - {fileID: 8863070059376121473}
+  deathEffect: {fileID: 198992326210486402, guid: 2e33bbd89680b744a8f2b0727a31b0ca,
+    type: 3}
 --- !u!1 &9185553126784716472
 GameObject:
   m_ObjectHideFlags: 0

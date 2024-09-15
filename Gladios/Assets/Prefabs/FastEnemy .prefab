@@ -7253,13 +7253,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: 8344d052dccbce24f913d3e3dd6e1a7c, type: 2}
   health: 0
-  takenDamage: 0
   damage: 0
   weaponList:
   - {fileID: 5823549441139609925}
   - {fileID: 8899175604244565695}
   - {fileID: 5675844340605845440}
   - {fileID: 5891432653019505341}
+  deathEffect: {fileID: 198992326210486402, guid: 2e33bbd89680b744a8f2b0727a31b0ca,
+    type: 3}
 --- !u!114 &4915279378194036533
 MonoBehaviour:
   m_ObjectHideFlags: 0

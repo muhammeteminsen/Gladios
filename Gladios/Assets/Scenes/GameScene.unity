@@ -27353,6 +27353,12 @@ PrefabInstance:
       objectReference: {fileID: 897988276}
     - target: {fileID: 3436221262095846645, guid: ec866b77cdd0cce4ab172ae94d5af687,
         type: 3}
+      propertyPath: redSlash
+      value: 
+      objectReference: {fileID: 198339608736465228, guid: 33cfc2755a55b7e4c86c9d7018efbaaa,
+        type: 3}
+    - target: {fileID: 3436221262095846645, guid: ec866b77cdd0cce4ab172ae94d5af687,
+        type: 3}
       propertyPath: delayTime
       value: 2
       objectReference: {fileID: 0}
@@ -27361,6 +27367,12 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 897988276}
+    - target: {fileID: 3436221262095846645, guid: ec866b77cdd0cce4ab172ae94d5af687,
+        type: 3}
+      propertyPath: yellowSlash
+      value: 
+      objectReference: {fileID: 198220203427489738, guid: 16b914e11b128e54fb9f85a547c95812,
+        type: 3}
     - target: {fileID: 3765418875908664604, guid: ec866b77cdd0cce4ab172ae94d5af687,
         type: 3}
       propertyPath: m_Mass

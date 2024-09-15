@@ -88,7 +88,7 @@ public class Movement : MonoBehaviour
         currentRotationX = Mathf.Clamp(currentRotationX, -25f, 25f);
 
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + mouseX, 0);
-        Camera.main.transform.localRotation = Quaternion.Euler(currentRotationX, 0, 0);
+        mainCamera.transform.localRotation = Quaternion.Euler(currentRotationX, 0, 0);
     }
 
     void Jump()

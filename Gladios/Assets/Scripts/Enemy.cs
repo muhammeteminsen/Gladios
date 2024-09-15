@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     public List<GameObject> weaponList;
-   
+    [SerializeField] ParticleSystem deathEffect;
     private void Start()
     {
         health = enemyInfo.enemyMaxHealth;
@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(health);
         if (health <= 0)
         {
+            rb.isKinematic = true;
             for (int i = 0; i < animator.parameterCount; i++)
             {
                 AnimatorControllerParameter parameter = animator.GetParameter(i);
@@ -68,10 +69,18 @@ public class Enemy : MonoBehaviour
                     animator.SetBool(parameter.name, false);
                 }
             }
-            Destroy(gameObject,5f);
             animator.Play("Death");
+            
+           
+            
         }
 
+        
+    }
+    public void EffectsDelayFNC()
+    {
+       
+        Destroy(gameObject);
         
     }
     private void OnTriggerEnter(Collider other)
@@ -80,13 +89,13 @@ public class Enemy : MonoBehaviour
         {
             health -= takenDamage;
             GetComponent<CapsuleCollider>().isTrigger = true;
-            rb.isKinematic = true;
             Combat.attack = false;
         }
     }
     public void HitControlFNC()
     {
         GetComponentInChildren<CombatEnemy>().isHit=false;
+        Instantiate(deathEffect, transform.position, transform.rotation, transform);
     }
     public void DeathWeaponLeaveFNC()
     {

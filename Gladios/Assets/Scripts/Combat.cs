@@ -11,6 +11,8 @@ public class Combat : MonoBehaviour
     [SerializeField] float hammerDamageRadius;
     AnimationController controller;
     [SerializeField] float delayTime;
+    [SerializeField] AudioSource swordSlash, fightingVoice;
+    [SerializeField] ParticleSystem bloodParticle,yellowSlash,redSlash;
     Animator animator;
     Rigidbody rb;
     public int health = 100;
@@ -86,7 +88,7 @@ public class Combat : MonoBehaviour
         hitCollider.GetComponent<Animator>().Play("Hit_F_1_InPlace");
         yield return new WaitForSecondsRealtime(.1f);
         hitCollider.GetComponent<Animator>().SetBool("Hit", false);
-
+       
     }
 
     IEnumerator MouseDown()
@@ -133,6 +135,7 @@ public class Combat : MonoBehaviour
     {
         Animator otherAnim = other.GetComponent<Animator>();
         isHit = true;
+        Vector3 collisionPoint = other.ClosestPoint(transform.position);  // En yakýn çarpýþma noktasý
         if (otherAnim.GetCurrentAnimatorStateInfo(0).IsName("StunnedLoop") ||
             otherAnim.GetCurrentAnimatorStateInfo(0).IsName("EnemyAttack1"))
         {
@@ -150,16 +153,26 @@ public class Combat : MonoBehaviour
             }
             otherAnim.Play("Hit_F_1_InPlace");
         }
-        other.GetComponent<Rigidbody>().velocity += mainCamera.transform.forward * 5;
+        other.GetComponent<Rigidbody>().velocity = mainCamera.transform.forward*5;
         other.GetComponent<Animator>().SetBool("Hit", true);
+        swordSlash.Play();
+        fightingVoice.Play();
+        ParticleSystem bloodParticleIns = Instantiate(bloodParticle, collisionPoint, Quaternion.LookRotation(mainCamera.transform.forward,mainCamera.transform.up));
+        ParticleSystem yellowSlashIns = Instantiate(yellowSlash, collisionPoint, Quaternion.LookRotation(mainCamera.transform.forward, mainCamera.transform.up));
+        ParticleSystem redSlashIns = Instantiate(redSlash, collisionPoint, Quaternion.LookRotation(mainCamera.transform.forward, mainCamera.transform.up));
+        Destroy(yellowSlashIns.gameObject,.5f);
         if (controller.weapons[0].activeSelf)
         {
             otherAnim.SetBool("Stunned", true);
         }
         yield return new WaitForSecondsRealtime(delayTime);
         isHit = false;
-
+        
+        Destroy(bloodParticleIns.gameObject);
+        Destroy(redSlashIns.gameObject);
+        
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
