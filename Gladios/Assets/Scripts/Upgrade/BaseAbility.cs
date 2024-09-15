@@ -4,19 +4,25 @@ using UnityEngine;
 
 public abstract class BaseAbility : ScriptableObject
 {
-    public string abilityName;
-    public string abilityDescription;
-    public float cooldownTime;
+    public string abilityName;  
+    public Sprite abilitySprite;
+    public int cooldownTime;
     public float manaCost;
-
+    public bool isOnCooldown = false;
+    public KeyCode activateKey;
     public abstract void Activate(GameObject user);
-
+    public IEnumerator Cooldown()
+    {
+        isOnCooldown = true;
+        yield return new WaitForSeconds(cooldownTime);
+        isOnCooldown = false;
+    }
 }
 public abstract class MeleeAbility : BaseAbility
 {
-    public float damage;
+    public int damage;
     public float attackRange;
-
+    
     public override void Activate(GameObject user)
     {
         // Yakýn dövüþ yeteneðinin uygulanacaðý kod

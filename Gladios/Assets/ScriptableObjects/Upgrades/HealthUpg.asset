@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 882e6df639c285247aa84b8ca3d98a0a, type: 3}
-  m_Name: AttackUpg
+  m_Name: HealthUpg
   m_EditorClassIdentifier: 
-  healthBonus: 0
+  healthBonus: 20
   speedBonus: 0
-  damageBonus: 10
-  selectedSprite: {fileID: 21300000, guid: 00c79b33ba1412e4cafa2b77b63887a6, type: 3}
+  damageBonus: 0
+  selectedSprite: {fileID: 21300000, guid: ded87a8b5fcc7294ea2f7992116d67b3, type: 3}

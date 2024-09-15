@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEditor.Rendering;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class WeaponSkills
@@ -21,21 +22,43 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] int weaponIndex;
     [SerializeField] Card cardObject1, cardObject2, cardObject3;
     [SerializeField] AnimationController animationController;
-   
+    [SerializeField] List<BaseAbility> ownedAbilitys;
+    private bool canUse = true;
     private void Awake()
     {
         Instance = this; // Setup the singleton
     }
     private void Update()
     {
+        CheckOwnedAbilitys();
         if (card.upgradeUI.activeSelf)
         {
-            
-            Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
-        else { Cursor.lockState = CursorLockMode.Locked; }
+        else { UnityEngine.Cursor.lockState = CursorLockMode.Locked; }
     }
     // Get the active weapon index based on animationController
+    void CheckOwnedAbilitys()
+    {
+        foreach (BaseAbility ability in ownedAbilitys)
+        {
+            // Eðer belirlenen tuþa basýlmýþsa ve yetenek cooldown'da deðilse
+            if (Input.GetKeyDown(ability.activateKey) && !ability.isOnCooldown && canUse)
+            {
+                // Yetenek kullan
+                ability.Activate(gameObject);
+
+                // Cooldown baþlat
+                StartCoroutine(ability.Cooldown());
+            }
+        }
+    }
+    IEnumerator CooldownForAbility(int cooldown)
+    {
+        canUse = false;
+        yield return new WaitForSeconds(cooldown); 
+        canUse = true;
+    }
     public void GetWeaponIndex()
     {
         for (int i = 0; i < animationController.weapons.Length; i++)
@@ -62,6 +85,7 @@ public class UpgradeManager : MonoBehaviour
         int skillIndex = UnityEngine.Random.Range(0, selectedSkills.weaponAbilities.Count);
         return selectedSkills.weaponAbilities[skillIndex];
     }
+
 
     // Function to get a random general upgrade
     GeneralUpgradeSO RandomGeneralUpgrade()
@@ -90,6 +114,7 @@ public class UpgradeManager : MonoBehaviour
         {
             // If a BaseAbility is selected
             Debug.Log("Applying Ability: " + selectedAbility.abilityName);
+            ownedAbilitys.Add(selectedAbility);
             // Implement logic to apply the selected ability to the player or weapon
         }
         else if (selectedUpgrade != null)
@@ -108,6 +133,7 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogWarning("No ability or upgrade selected!");
         }
     }
+
     // Optionally reset the card display
     void ResetCardDisplay()
     {
@@ -116,4 +142,5 @@ public class UpgradeManager : MonoBehaviour
         cardObject3.ClearCardDetails();
         // Alternatively, hide the cards if needed
     }
+
 }
