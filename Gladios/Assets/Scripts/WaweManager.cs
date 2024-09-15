@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using UnityEngine;
-
 
 [Serializable]
 public class Wave
@@ -13,32 +11,36 @@ public class Wave
 }
 public class WaweManager : MonoBehaviour
 {
+    public static WaweManager instance;
     [SerializeField] UpgradeManager upgradeManager;
     public List<Wave> waves;  // Wave listesi
     public Transform spawnPoint;
 
-    
     public bool waweCanStart;
     int currentWawe = 0;
+    private void Awake()
+    {
+        instance = this;    
+    }
     private void Start()
     {
         currentWawe = 0;
         waweCanStart = true;
     }
+
     private void Update()
     {
-        if (waweCanStart) 
+        if (waweCanStart)
         {
-            waweCanStart=false;
-            StartCoroutine(SpawnWawe(currentWawe)); 
-           
+            waweCanStart = false;
+            StartCoroutine(SpawnWawe(currentWawe));
         }
-        else if (!waweCanStart) 
+        else if (!waweCanStart && AreEnemiesCleared()) // Eðer tüm düþmanlar yok olduysa
         {
-           upgradeManager.AssignCardSkills();
+            upgradeManager.AssignCardSkills(); // Yükseltmeleri devreye sok
         }
-
     }
+
     IEnumerator SpawnWawe(int waveIndex)
     {
         Wave wave = waves[waveIndex];
@@ -50,6 +52,13 @@ public class WaweManager : MonoBehaviour
         }
 
         currentWawe++;
-        
+    }
+
+    // Bu fonksiyon sahnedeki tüm düþmanlarýn yok olup olmadýðýný kontrol eder
+    private bool AreEnemiesCleared()
+    {
+        Enemy[] enemies = FindObjectsOfType<Enemy>(); // Sahnede var olan tüm Enemy objelerini bul
+        return enemies.Length == 0; // Eðer sahnede hiç düþman kalmadýysa true döner
     }
 }
+

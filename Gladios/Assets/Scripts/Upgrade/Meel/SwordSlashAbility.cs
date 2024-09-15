@@ -6,8 +6,11 @@ public class SwordSlashAbility : MeleeAbility
 {
     protected override void PerformMeleeAttack(GameObject user)
     {
-        // Yakýn dövüþ saldýrýsýnýn uygulanacaðý kod
+     
+        // Apply damage
+        Enemy.takenDamage += ((int)damage);
         Debug.Log($"{abilityName} deals {damage} melee damage.");
-        // Burada düþmanlara hasar verebilirsin
+        // Additional code for dealing damage
     }
+
 }

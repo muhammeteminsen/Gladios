@@ -1,13 +1,16 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Card : MonoBehaviour
 {
+    WaweManager waweManager;
     public GameObject upgradeUI; // UI that contains the upgrades
-    [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI descriptionText;
+    public Image abilityUýImage;
 
     private BaseAbility assignedAbility; // Store the ability object
     private GeneralUpgradeSO assignedUpgrade; // Store the upgrade object if relevant
@@ -21,17 +24,17 @@ public class Card : MonoBehaviour
         assignedUpgrade = null;    // Clear any assigned upgrade
 
         // Set the text for the UI elements
-        if (titleText != null && descriptionText != null)
+        if (abilityUýImage != null)
         {
-            titleText.text = ability.abilityName;
-            descriptionText.text = ability.abilityDescription;
+            abilityUýImage.sprite = ability.abilitySprite;
         }
         else
         {
             Debug.LogError("Text fields are not assigned in the inspector!");
         }
+       
     }
-
+    
     // Overload for GeneralUpgradeSO
     public void SetCardDetails(GeneralUpgradeSO upgrade)
     {
@@ -39,28 +42,16 @@ public class Card : MonoBehaviour
         assignedAbility = null;    // Clear any assigned ability
 
         // Set text for general upgrades
-        if (titleText != null && descriptionText != null)
-        {
-            titleText.text = "Upgrade";
-            descriptionText.text = $"Bonus Health: {upgrade.healthBonus} \nBonus Speed: {upgrade.speedBonus} \nBonus Damage: {upgrade.damageBonus}";
-        }
-        else
-        {
-            Debug.LogError("Text fields are not assigned in the inspector!");
-        }
+        abilityUýImage.sprite = assignedUpgrade.selectedSprite;
+        
     }
 
     // Function to clear the card's details
     public void ClearCardDetails()
     {
-        assignedAbility = null;
-        assignedUpgrade = null;
+        abilityUýImage.sprite = null;
 
-        if (titleText != null && descriptionText != null)
-        {
-            titleText.text = "";
-            descriptionText.text = "";
-        }
+        
     }
 
     public void SelectedCard()
@@ -77,8 +68,9 @@ public class Card : MonoBehaviour
             skillApplied = true;
             ApplySelectedSkillOrUpgrade();
 
-            
+            waweManager.waweCanStart = true;
         }
+
     }
    
     // Function to apply the selected skill or upgrade
@@ -87,7 +79,7 @@ public class Card : MonoBehaviour
         // Apply assigned ability
         if (assignedAbility != null)
         {
-            Debug.Log("Selected Ability: " + assignedAbility.abilityName);
+            
             // Notify UpgradeManager that the skill was selected
             UpgradeManager.Instance.ApplySelected(assignedAbility);
         }
